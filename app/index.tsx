@@ -1,38 +1,18 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { View } from "react-native";
 import { Text } from '@/components/ui/text';
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function HomeScreen() {
   return (
-    <View className="bg-background flex-1 items-center justify-center gap-5 p-6">
-      <Card className="w-full max-w-sm rounded-2xl p-6">
-        <CardHeader className="items-center">
-          <CardTitle variant="h1" className="text-brand-primary pb-2 text-center">
-            Hall Pass
-          </CardTitle>
-          <Text variant="muted" className="text-muted-foreground">
-            {new Date().toLocaleTimeString()}
-          </Text>
-        </CardHeader>
-
-        <CardContent>
-          <View className="flex-row justify-center gap-3">
-            <View className="items-center">
-              <Text className="text-muted-foreground text-sm">An app for</Text>
-              <CardTitle variant="h3" className="text-foreground font-semibold">
-                Students
-              </CardTitle>
-            </View>
-          </View>
-        </CardContent>
-
-        <CardFooter className="flex-col gap-3">
-          <View className="flex-row items-center overflow-hidden">
-            <Text variant="code">Update me with your own code</Text>
-          </View>
-        </CardFooter>
-      </Card>
-    </View>
+    <View className="flex flex-1 py-32 bg-background">
+      <View className="border-2 border-white flex flex-row">
+        <View className="flex items-center justify-center w-16"></View>
+          <Checkbox className="border-2"></Checkbox>
+        <View className="flex flex-col">
+          <Text className="font-bold">Submit Assignment</Text>
+          <Text className="font-semibold">Due: Oct 20</Text>
+        </View>
+</View>
+</View>
   );
 }
