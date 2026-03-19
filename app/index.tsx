@@ -1,19 +1,19 @@
+import * as React from 'react';
 import { View } from 'react-native';
-import { Text } from '@/components/ui/text';
-import { Checkbox } from '@/components/ui/checkbox';
+import Task from '@/components/Task';
+
+export interface ITask {
+  title: string;
+  category: string;
+  isChecked: boolean;
+}
 
 export default function HomeScreen() {
+  const [checked, setChecked] = React.useState(false);
+
   return (
-    <View className="bg-background flex flex-1 py-32">
-      <View className="flex flex-row border-2 border-white">
-        <View className="flex w-16 items-center justify-center">
-          <Checkbox className="border-2" />
-        </View>
-        <View className="flex flex-col">
-          <Text className="">Submit Assignment</Text>
-          <Text className="">Due: Oct 20</Text>
-        </View>
-      </View>
+    <View className="bg-background flex-1 items-center justify-center gap-5 p-6">
+      <Task />
     </View>
   );
 }
