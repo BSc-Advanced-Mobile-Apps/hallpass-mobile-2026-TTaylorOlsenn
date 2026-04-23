@@ -9,11 +9,16 @@ export interface ITask {
 }
 
 export default function HomeScreen() {
+  const task: ITask = {
+    title: 'My updated test item',
+    category: 'Test category',
+    isChecked: false,
+  };
   const [checked, setChecked] = React.useState(false);
 
   return (
     <View className="bg-background flex-1 items-center justify-center gap-5 p-6">
-      <Task />
+      <Task task={task} />
     </View>
   );
 }
