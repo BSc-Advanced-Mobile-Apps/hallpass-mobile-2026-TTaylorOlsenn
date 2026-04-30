@@ -10,6 +10,7 @@ import { ITask } from '@/app';
 
 interface TaskProps {
   task: ITask;
+  onUpdate?: (task: ITask) => void;
 }
 
 export default function Task({ task: initialTask }: TaskProps) {
@@ -17,8 +18,11 @@ export default function Task({ task: initialTask }: TaskProps) {
   const [showDialog, setShowDialog] = React.useState(false);
 
   const handleSetChecked = () => {
-    const nextChecked = !task.isChecked;
-    setTask({ ...task, isChecked: nextChecked });
+    const updatedTask = { ...task, isChecked: !task.isChecked };
+    setTask(updatedTask);
+    if (onUpdate) {
+      onUpdate(updatedTask);
+    }
   };
 
   return (

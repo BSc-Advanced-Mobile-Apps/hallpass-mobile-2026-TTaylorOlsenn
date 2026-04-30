@@ -65,29 +65,19 @@ export default function TaskDialogue({
       </DialogHeader>
 
       <View className="gap-4">
-        <Input
-          defaultValue={task.title}
-          placeholder="Task title"
-          onChangeText={handleUpdateTitle}
-        />
-        <Input
-          defaultValue={task.category}
-          placeholder="Category"
-          onChangeText={handleUpdateCategory}
-        />
+        <Input value={editedTitle} placeholder="Task title" onChangeText={handleUpdateTitle} />
+        <Input value={editedCategory} placeholder="Category" onChangeText={handleUpdateCategory} />
       </View>
 
       <DialogFooter className="mt-4 flex flex-row gap-2">
-        <DialogClose className="border-brand-primary w-1/2 border" asChild>
-          <Button variant="outline" className="border-brand-primary rounded-3xl border">
-            <Text className="text-brand-primary">Cancel</Text>
-          </Button>
-        </DialogClose>
-        <DialogClose asChild>
-          <Button className="bg-brand-primary w-1/2 rounded-3xl" onPress={handleSave}>
-            <Text className="text-background">Save changes</Text>
-          </Button>
-        </DialogClose>
+        <Button
+          className="border-brand-primary flex-1 rounded-3xl border bg-transparent"
+          onPress={() => setShowDialog(false)}>
+          <Text className="text-brand-primary">Cancel</Text>
+        </Button>
+        <Button className="bg-brand-primary flex-1w-1/2 rounded-3xl" onPress={handleSave}>
+          <Text>Save changes</Text>
+        </Button>
       </DialogFooter>
     </DialogContent>
   );
