@@ -16,12 +16,14 @@ import { Text } from '@/components/ui/text';
 import { ITask } from '@/app';
 
 interface TaskDialogProps {
+  onSave?: (task: ITask) => void;
   task: ITask;
   setTask: (task: ITask) => void;
   setShowDialog: (showDialog: boolean) => void;
   showDialog: boolean;
 }
 export default function TaskDialogue({
+  onSave,
   task,
   setTask,
   setShowDialog,
@@ -45,6 +47,13 @@ export default function TaskDialogue({
     };
 
     setTask(nextTask);
+    // If onSave is defined, call it and return early
+    if (onSave) {
+      onSave(nextTask);
+      return;
+    }
+    setEditedTitle('');
+    setEditedCategory('');
     setShowDialog(false);
   };
 
