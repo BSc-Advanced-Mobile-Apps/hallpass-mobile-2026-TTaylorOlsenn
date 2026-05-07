@@ -36,6 +36,7 @@ export default function Task({ task: initialTask, onUpdate }: TaskProps) {
           onPress={() => setShowDialog(true)}>
           <View className="flex h-full w-24 px-8 py-5">
             <Checkbox
+              testID="checkbox"
               className="border-foreground checked:bg-foreground"
               checked={task.isChecked}
               onCheckedChange={handleSetChecked}
