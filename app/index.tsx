@@ -59,8 +59,6 @@ export default function HomeScreen() {
     saveTasks(updatedTasks);
   };
 
-  const [checked, setChecked] = React.useState(false);
-
   return (
     <View className="bg-background flex flex-1 justify-between">
       <View className="flex flex-row justify-center">

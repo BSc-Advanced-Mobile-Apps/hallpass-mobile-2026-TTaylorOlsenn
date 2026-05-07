@@ -50,6 +50,7 @@ export default function TaskDialogue({
     // If onSave is defined, call it and return early
     if (onSave) {
       onSave(nextTask);
+
       return;
     }
     setEditedTitle('');
