@@ -45,6 +45,7 @@ export default function Task({ task: initialTask, onUpdate }: TaskProps) {
           <View className="border-foreground-transparent flex h-full flex-1 gap-1 border-b py-4">
             <Text className="text-foreground text-xl">{task.title}</Text>
             <Text className="text-foreground-transparent text-xl">{task.category}</Text>
+            <Text className="text-foreground-transparent text-xl">{task.date}</Text>
           </View>
         </TouchableOpacity>
       </DialogTrigger>

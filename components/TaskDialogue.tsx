@@ -31,6 +31,7 @@ export default function TaskDialogue({
 }: TaskDialogProps) {
   const [editedTitle, setEditedTitle] = React.useState(task.title);
   const [editedCategory, setEditedCategory] = React.useState(task.category);
+  const [editedDate, setEditedDate] = React.useState(task.date);
 
   const handleUpdateTitle = (title: string) => {
     setEditedTitle(title);
@@ -38,12 +39,16 @@ export default function TaskDialogue({
   const handleUpdateCategory = (category: string) => {
     setEditedCategory(category);
   };
+  const handleUpdateDate = (date: string) => {
+    setEditedDate(date);
+  };
 
   const handleSave = () => {
     const nextTask = {
       ...task,
       title: editedTitle,
       category: editedCategory,
+      date: editedDate,
     };
 
     setTask(nextTask);
@@ -55,6 +60,7 @@ export default function TaskDialogue({
     }
     setEditedTitle('');
     setEditedCategory('');
+    setEditedDate('');
     setShowDialog(false);
   };
 
@@ -68,6 +74,7 @@ export default function TaskDialogue({
       <View className="gap-4">
         <Input value={editedTitle} placeholder="Task title" onChangeText={handleUpdateTitle} />
         <Input value={editedCategory} placeholder="Category" onChangeText={handleUpdateCategory} />
+        <Input value={editedDate} placeholder="date" onChangeText={handleUpdateDate} />
       </View>
 
       <DialogFooter className="mt-4 flex flex-row gap-2">
