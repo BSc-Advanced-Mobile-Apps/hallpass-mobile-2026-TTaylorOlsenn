@@ -56,7 +56,7 @@ describe('Task', () => {
     expect(checkbox).not.toBeChecked();
   });
 
-  test('checks if dialogue box is open', async () => {
+  test('checks if dialogue box is not open', async () => {
     const task = {
       id: 1,
       title: 'Test Task',
