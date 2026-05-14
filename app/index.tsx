@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const TASKS_STORAGE_KEY = 'hallpass_tasks';
 
 export interface ITask {
+  date: string;
   id: number;
   title: string;
   category: string;
@@ -46,9 +47,9 @@ export default function HomeScreen() {
     }
   };
 
-  const handleAddTask = (title: string, category: string) => {
+  const handleAddTask = (title: string, category: string, date: string) => {
     const nextId = tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
-    const updatedTasks = [...tasks, { id: nextId, title, category, isChecked: false }];
+    const updatedTasks = [...tasks, { id: nextId, title, category, date, isChecked: false }];
     setTasks(updatedTasks);
     saveTasks(updatedTasks);
   };

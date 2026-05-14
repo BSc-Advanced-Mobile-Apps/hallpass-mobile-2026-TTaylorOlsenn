@@ -32,6 +32,14 @@ export default function TaskDialogue({
   const [editedTitle, setEditedTitle] = React.useState(task.title);
   const [editedCategory, setEditedCategory] = React.useState(task.category);
   const [editedDate, setEditedDate] = React.useState(task.date);
+  const [dateError, setDateError] = React.useState('');
+
+  React.useEffect(() => {
+    setEditedTitle(task.title);
+    setEditedCategory(task.category);
+    setEditedDate(task.date);
+    setDateError('');
+  }, [task]);
 
   const handleUpdateTitle = (title: string) => {
     setEditedTitle(title);
@@ -41,14 +49,41 @@ export default function TaskDialogue({
   };
   const handleUpdateDate = (date: string) => {
     setEditedDate(date);
+    setDateError('');
+  };
+
+  const isValidDateString = (dateString: string) => {
+    const trimmed = dateString.trim();
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(trimmed)) {
+      return false;
+    }
+    const [year, month, day] = trimmed.split('-').map(Number);
+    const parsed = new Date(trimmed);
+    return (
+      !Number.isNaN(parsed.getTime()) &&
+      parsed.getUTCFullYear() === year &&
+      parsed.getUTCMonth() + 1 === month &&
+      parsed.getUTCDate() === day
+    );
   };
 
   const handleSave = () => {
+    if (!editedDate.trim()) {
+      setDateError('Please enter a date in YYYY-MM-DD format.');
+      return;
+    }
+
+    if (!isValidDateString(editedDate)) {
+      setDateError('Date must be in YYYY-MM-DD format and a valid calendar date.');
+      return;
+    }
+
     const nextTask = {
       ...task,
       title: editedTitle,
       category: editedCategory,
-      date: editedDate,
+      date: editedDate.trim(),
     };
 
     setTask(nextTask);
@@ -74,7 +109,13 @@ export default function TaskDialogue({
       <View className="gap-4">
         <Input value={editedTitle} placeholder="Task title" onChangeText={handleUpdateTitle} />
         <Input value={editedCategory} placeholder="Category" onChangeText={handleUpdateCategory} />
-        <Input value={editedDate} placeholder="date" onChangeText={handleUpdateDate} />
+        <Input
+          value={editedDate}
+          placeholder="YYYY-MM-DD"
+          onChangeText={handleUpdateDate}
+          keyboardType="numbers-and-punctuation"
+        />
+        {dateError ? <Text className="text-destructive">{dateError}</Text> : null}
       </View>
 
       <DialogFooter className="mt-4 flex flex-row gap-2">
