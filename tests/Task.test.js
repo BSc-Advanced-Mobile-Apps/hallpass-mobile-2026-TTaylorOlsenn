@@ -21,7 +21,7 @@ describe('Task', () => {
 
   test('toggles completion status when pressed', async () => {
     const task = {
-      id: 2,
+      id: 1,
       title: 'Test Task',
       category: 'Test Category',
       isChecked: false,
@@ -39,13 +39,36 @@ describe('Task', () => {
 
   test('toggles from checked to unchecked when pressed', async () => {
     const task = {
-      id: 3,
-      isChecked: false,
+      id: 1,
+      title: 'Test Task',
+      category: 'Test Category',
+      isChecked: true,
     };
 
     render(<Task task={task} />);
 
     const checkbox = screen.getByTestId('checkbox');
+
+    const user = userEvent.setup();
+    await user.press(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+  });
+
+  test('tasks can be edited', async () => {
+    const task = {
+      id: 1,
+      title: 'Test Task',
+      category: 'Test Category',
+      isChecked: true,
+    };
+
+    render(<Task task={task} />);
+
+    const checkbox = screen.getByTestId('checkbox');
+
+    const user = userEvent.setup();
+    await user.press(checkbox);
 
     expect(checkbox).not.toBeChecked();
   });
