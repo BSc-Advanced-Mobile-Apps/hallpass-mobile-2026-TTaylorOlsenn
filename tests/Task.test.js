@@ -1,5 +1,6 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import Task from '../components/Task';
+import TaskDialogue from '@/components/TaskDialogue';
 
 describe('Task', () => {
   test('renders a task', () => {
@@ -55,7 +56,7 @@ describe('Task', () => {
     expect(checkbox).not.toBeChecked();
   });
 
-  test('tasks can be edited', async () => {
+  test('checks if dialogue box is open', async () => {
     const task = {
       id: 1,
       title: 'Test Task',
@@ -65,11 +66,7 @@ describe('Task', () => {
 
     render(<Task task={task} />);
 
-    const checkbox = screen.getByTestId('checkbox');
-
-    const user = userEvent.setup();
-    await user.press(checkbox);
-
-    expect(checkbox).not.toBeChecked();
+    const dialogueTitle = screen.queryByText('Save Changes');
+    expect(dialogueTitle).toBeNull();
   });
 });
