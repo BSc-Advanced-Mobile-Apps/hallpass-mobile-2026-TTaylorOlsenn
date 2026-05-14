@@ -54,12 +54,14 @@ export default function TaskDialogue({
 
   const isValidDateString = (dateString: string) => {
     const trimmed = dateString.trim();
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    const datePattern = /^\d{2}-\d{2}-\d{4}$/;
     if (!datePattern.test(trimmed)) {
       return false;
     }
-    const [year, month, day] = trimmed.split('-').map(Number);
-    const parsed = new Date(trimmed);
+    const [day, month, year] = trimmed.split('-').map(Number);
+    const parsed = new Date(
+      `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+    );
     return (
       !Number.isNaN(parsed.getTime()) &&
       parsed.getUTCFullYear() === year &&
@@ -70,12 +72,12 @@ export default function TaskDialogue({
 
   const handleSave = () => {
     if (!editedDate.trim()) {
-      setDateError('Please enter a date in YYYY-MM-DD format.');
+      setDateError('Please enter a date in DD-MM-YYYY format.');
       return;
     }
 
     if (!isValidDateString(editedDate)) {
-      setDateError('Date must be in YYYY-MM-DD format and a valid calendar date.');
+      setDateError('Date must be in DD-MM-YYYY format and a valid calendar date.');
       return;
     }
 
@@ -111,11 +113,13 @@ export default function TaskDialogue({
         <Input value={editedCategory} placeholder="Category" onChangeText={handleUpdateCategory} />
         <Input
           value={editedDate}
-          placeholder="YYYY-MM-DD"
+          placeholder="DD-MM-YYYY"
           onChangeText={handleUpdateDate}
           keyboardType="numbers-and-punctuation"
         />
-        {dateError ? <Text className="text-destructive">{dateError}</Text> : null}
+        <View className="min-h-6">
+          {dateError ? <Text className="text-destructive">{dateError}</Text> : null}
+        </View>
       </View>
 
       <DialogFooter className="mt-4 flex flex-row gap-2">
@@ -124,8 +128,8 @@ export default function TaskDialogue({
           onPress={() => setShowDialog(false)}>
           <Text className="text-brand-primary">Cancel</Text>
         </Button>
-        <Button className="bg-brand-primary flex-1w-1/2 rounded-3xl" onPress={handleSave}>
-          <Text>Save changes</Text>
+        <Button className="bg-brand-primary flex-1 justify-center rounded-3xl" onPress={handleSave}>
+          <Text className="text-center">Save changes</Text>
         </Button>
       </DialogFooter>
     </DialogContent>
