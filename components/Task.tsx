@@ -56,6 +56,7 @@ export default function Task({ task: initialTask, onUpdate }: TaskProps) {
         setTask={setTask}
         setShowDialog={setShowDialog}
         showDialog={showDialog}
+        onUpdate={onUpdate}
       />
     </Dialog>
   );

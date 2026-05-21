@@ -17,6 +17,7 @@ import { ITask } from '@/app';
 
 interface TaskDialogProps {
   onSave?: (task: ITask) => void;
+  onUpdate?: (task: ITask) => void;
   task: ITask;
   setTask: (task: ITask) => void;
   setShowDialog: (showDialog: boolean) => void;
@@ -24,6 +25,7 @@ interface TaskDialogProps {
 }
 export default function TaskDialogue({
   onSave,
+  onUpdate,
   task,
   setTask,
   setShowDialog,
@@ -95,6 +97,14 @@ export default function TaskDialogue({
 
       return;
     }
+
+    if (onUpdate) {
+      onUpdate(nextTask);
+      setShowDialog(false);
+
+      return;
+    }
+
     setEditedTitle('');
     setEditedCategory('');
     setEditedDate('');
