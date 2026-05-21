@@ -31,7 +31,7 @@ export default function TaskDialogue({
 }: TaskDialogProps) {
   const [editedTitle, setEditedTitle] = React.useState(task.title);
   const [editedCategory, setEditedCategory] = React.useState(task.category);
-  const [editedDate, setEditedDate] = React.useState(task.date);
+  const [editedDate, setEditedDate] = React.useState(task.date ?? '');
   const [dateError, setDateError] = React.useState('');
 
   React.useEffect(() => {
@@ -71,7 +71,7 @@ export default function TaskDialogue({
   };
 
   const handleSave = () => {
-    if (!editedDate.trim()) {
+    if (!editedDate?.trim()) {
       setDateError('Please enter a date in DD-MM-YYYY format.');
       return;
     }
