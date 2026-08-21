@@ -15,6 +15,7 @@
   /* Color definitions - these will be available as Tailwind utilities */
   --color-background: hsl(11 72% 3%);
   --color-brand-primary: hsl(11 100% 60%);
+  --sausage: hsl(50 100% 60%);
   --color-foreground: hsl(14 19% 87%);
   --color-foreground-transparent: hsl(11 20% 64% / 0.5);
   --color-input-background: hsl(11 40% 80% / 0.12);
