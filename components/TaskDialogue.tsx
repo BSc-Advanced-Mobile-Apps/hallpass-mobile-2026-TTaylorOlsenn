@@ -18,6 +18,7 @@ import { ITask } from '@/app';
 interface TaskDialogProps {
   onSave?: (task: ITask) => void;
   onUpdate?: (task: ITask) => void;
+  onDelete?: (id: number) => void;
   task: ITask;
   setTask: (task: ITask) => void;
   setShowDialog: (showDialog: boolean) => void;
@@ -26,11 +27,13 @@ interface TaskDialogProps {
 export default function TaskDialogue({
   onSave,
   onUpdate,
+  onDelete,
   task,
   setTask,
   setShowDialog,
   showDialog,
 }: TaskDialogProps) {
+  const [confirming, setConfirming] = React.useState(false);
   const [editedTitle, setEditedTitle] = React.useState(task.title);
   const [editedCategory, setEditedCategory] = React.useState(task.category);
   const [editedDate, setEditedDate] = React.useState(task.date ?? '');
@@ -111,6 +114,18 @@ export default function TaskDialogue({
     setShowDialog(false);
   };
 
+  const handleDelete = () => {
+    setConfirming(true);
+  };
+
+  const confirmDelete = () => {
+    if (onDelete) {
+      onDelete(task.id);
+    }
+    setConfirming(false);
+    setShowDialog(false);
+  };
+
   return (
     <DialogContent className="max-w-5/6">
       <DialogHeader>
@@ -133,14 +148,41 @@ export default function TaskDialogue({
       </View>
 
       <DialogFooter className="mt-4 flex flex-row gap-2">
-        <Button
-          className="border-brand-primary flex-1 rounded-3xl border bg-transparent"
-          onPress={() => setShowDialog(false)}>
-          <Text className="text-brand-primary">Cancel</Text>
-        </Button>
-        <Button className="bg-brand-primary flex-1 justify-center rounded-3xl" onPress={handleSave}>
-          <Text className="text-center">Save changes</Text>
-        </Button>
+        {confirming ? (
+          <>
+            <Button
+              className="border-destructive flex-1 rounded-3xl border bg-transparent"
+              onPress={confirmDelete}>
+              <Text className="text-destructive">Confirm Delete</Text>
+            </Button>
+            <Button
+              className="border-brand-primary flex-1 rounded-3xl border bg-transparent"
+              onPress={() => setConfirming(false)}>
+              <Text className="text-brand-primary">Cancel</Text>
+            </Button>
+            <Button
+              className="opacity-0 flex-1 rounded-3xl border bg-transparent"
+              disabled>
+              <Text />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              className="border-destructive flex-1 rounded-3xl border bg-transparent"
+              onPress={handleDelete}>
+              <Text className="text-destructive">Delete</Text>
+            </Button>
+            <Button
+              className="border-brand-primary flex-1 rounded-3xl border bg-transparent"
+              onPress={() => setShowDialog(false)}>
+              <Text className="text-brand-primary">Cancel</Text>
+            </Button>
+            <Button className="bg-brand-primary flex-1 justify-center rounded-3xl" onPress={handleSave}>
+              <Text className="text-center">Save changes</Text>
+            </Button>
+          </>
+        )}
       </DialogFooter>
     </DialogContent>
   );

@@ -11,9 +11,10 @@ import { ITask } from '@/app';
 interface TaskProps {
   task: ITask;
   onUpdate?: (task: ITask) => void;
+  onDelete?: (id: number) => void;
 }
 
-export default function Task({ task: initialTask, onUpdate }: TaskProps) {
+export default function Task({ task: initialTask, onUpdate, onDelete }: TaskProps) {
   const [task, setTask] = React.useState(initialTask);
   const [showDialog, setShowDialog] = React.useState(false);
 
@@ -57,6 +58,7 @@ export default function Task({ task: initialTask, onUpdate }: TaskProps) {
         setShowDialog={setShowDialog}
         showDialog={showDialog}
         onUpdate={onUpdate}
+        onDelete={onDelete}
       />
     </Dialog>
   );
